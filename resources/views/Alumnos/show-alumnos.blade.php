@@ -17,13 +17,8 @@
                 <td>{{ $alumno->fecha_nacimiento }}</td>
                 <td>{{ $alumno->sexo }}</td>
                 <td>{{ $alumno->carrera }}</td>
-            </tr>
         @endforeach
     </ul>
-    
-    <tr>
-
-    </tr>
     
 </body>
 </html>
