@@ -45,7 +45,7 @@ class AlumnoController extends Controller
      */
     public function show(Alumno $alumno)
     {
-        //
+        return view('alumnos.show-alumno', compact('alumno'));
     }
 
     /**
@@ -53,7 +53,7 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        //
+        return view('alumnos.editar-alumnos', compact('alumno'));
     }
 
     /**
@@ -61,7 +61,14 @@ class AlumnoController extends Controller
      */
     public function update(Request $request, Alumno $alumno)
     {
-        //
+        $alumno->nombre = $request->input('nombre');
+        $alumno->correo = $request->input('correo');
+        $alumno->codigo = $request->input('codigo');
+        $alumno->fecha_nacimiento = $request->input('fecha_nacimiento');
+        $alumno->sexo = $request->input('sexo');
+        $alumno->carrera = $request->input('carrera');
+        $alumno->save();
+        return redirect()->route('alumnos.index');
     }
 
     /**
