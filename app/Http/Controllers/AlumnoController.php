@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Models\Alumno;
 use Illuminate\Http\Request;
 
@@ -29,6 +29,8 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
+      
+
         $alumnos = new Alumno();
         $alumnos->nombre = $request->input('nombre');
         $alumnos->correo = $request->input('correo');
@@ -37,7 +39,8 @@ class AlumnoController extends Controller
         $alumnos->sexo = $request->input('sexo');
         $alumnos->carrera = $request->input('carrera');
         $alumnos->save();
-        return redirect()->route('alumnos.index');
+        
+        return redirect()->route('alumnos.index')->with('success', 'Alumno creado correctamente');
     }
 
     /**
@@ -61,6 +64,7 @@ class AlumnoController extends Controller
      */
     public function update(Request $request, Alumno $alumno)
     {
+
         $alumno->nombre = $request->input('nombre');
         $alumno->correo = $request->input('correo');
         $alumno->codigo = $request->input('codigo');
@@ -68,7 +72,8 @@ class AlumnoController extends Controller
         $alumno->sexo = $request->input('sexo');
         $alumno->carrera = $request->input('carrera');
         $alumno->save();
-        return redirect()->route('alumnos.index');
+        
+        return redirect()->route('alumnos.index')->with('success', 'Alumno actualizado correctamente');
     }
 
     /**
@@ -76,6 +81,7 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        //
+        $alumno->delete();
+        return redirect()->route('alumnos.index')->with('success', 'Alumno eliminado correctamente');
     }
 }

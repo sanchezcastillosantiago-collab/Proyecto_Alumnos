@@ -16,6 +16,7 @@
     <table border="1" > 
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Código</th>
@@ -28,7 +29,7 @@
         @foreach ($alumnos as $alumno)
         <tr>
             <td>
-                {{ $alumnoalumno->id  }}
+                {{ $alumno->id }}
             </td>
             <td>
                 <a href="{{ route('alumnos.show', $alumno->id) }}">{{ $alumno->nombre }}</a>
@@ -48,11 +49,10 @@
             <td>
                 {{ $alumno->carrera }}
             </td>
+            <td>
+                <a href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a>
+            </td>
         </tr>
-
-    <td>
-        <a href ="{{ route('alumnos.editar', $alumno->id) }}">editar</a>
-    </td>
         @endforeach
     
         </tbody>

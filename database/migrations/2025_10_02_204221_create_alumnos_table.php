@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('alumnos', function (Blueprint $table) {
             $table->id();
-            //$table->timestamps();
             $table->string('nombre');
             $table->string('correo')->unique();
-            $table->string('codigo')->nullable();
+            $table->string('codigo')->unique();
             $table->date('fecha_nacimiento');
-            $table->string('sexo');
-            $table->enum('carrera', ['Ingeniería en Sistemas', 'Ingeniería Industrial', 'Ingeniería Civil', 'Arquitectura', 'Medicina', 'Derecho', 'Administración de Empresas', 'Contabilidad', 'Psicología', 'Educación']);
-            $table->save();
-            return redirect()->route('alumnos.index');
-
+            $table->enum('sexo', ['M', 'F']);
+            $table->string('carrera');
+            $table->timestamps();
         });
     }
 
