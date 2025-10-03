@@ -16,6 +16,7 @@ class Alumno extends Model
         'sexo',
         'carrera'
     ];
+    //Esto se agrego para que se guerdaran los datos en la base de datos y no de error
 
     protected $casts = [
         'fecha_nacimiento' => 'date',
