@@ -25,25 +25,25 @@
         </div>
     @endif
 
-    <form action="{{ route('alumnos.store') }}" method="POST">
+    <form action="{{ route('alumnos.store') }}" method="POST" >
         @csrf
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <input type="text" id="nombre" name="nombre" required value="{{ old('nombre') }}"><br>
 
         <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required><br>
+        <input type="email" id="correo" name="correo" required value="{{ old('correo') }}"><br>
 
         <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" required><br>
+        <input type="text" id="codigo" name="codigo" required value="{{ old('codigo') }}"><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required value="{{ old('fecha_nacimiento') }}"><br>
 
         <label for="sexo">Sexo:</label>
         <select id="sexo" name="sexo" required>
             <option value="">Seleccionar...</option>
-            <option value="M">Masculino</option>
-            <option value="F">Femenino</option>
+            <option value="M" {{ old('sexo') == 'M' ? 'selected' : '' }}>Masculino</option>
+            <option value="F" {{ old('sexo') == 'F' ? 'selected' : '' }}>Femenino</option>
         </select><br>
 
         <label for="carrera">Carrera:</label>

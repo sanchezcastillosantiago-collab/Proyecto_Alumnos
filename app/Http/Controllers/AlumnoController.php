@@ -31,6 +31,14 @@ class AlumnoController extends Controller
     {
       
 
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:alumnos,correo',
+            'codigo' => 'required|string|unique:alumnos,codigo',
+            'fecha_nacimiento' => 'required|date',
+            'sexo' => 'required|in:M,F',
+            'carrera' => 'required|string|max:255',
+        ]);
         $alumnos = new Alumno();
         $alumnos->nombre = $request->input('nombre');
         $alumnos->correo = $request->input('correo');
