@@ -9,16 +9,7 @@
     
     <h1>Crear Alumno</h1>
 
-    @if ($errors->any())
-        <div style="color: red; margin-bottom: 20px;">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+    @include('form-error')
     @if (session('success'))
         <div style="color: green; margin-bottom: 20px;">
             {{ session('success') }}

@@ -6,28 +6,29 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <h1>Crear Alumno</h1>
+
+    <h1>Editar Alumno</h1>
+    @include('form-error')
     <form action="{{ route('alumnos.update', $alumno->id) }}" method="POST">
         @csrf
         @method('PUT')
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <input type="text" id="nombre" name="nombre" required value="{{ old('nombre', $alumno->nombre) }}"><br>
 
         <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required><br>
+        <input type="email" id="correo" name="correo" required value="{{ old('correo', $alumno->correo) }}"><br>
 
         <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo"><br>
+        <input type="text" id="codigo" name="codigo" required value="{{ old('codigo', $alumno->codigo) }}"><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required value="{{ old('fecha_nacimiento', $alumno->fecha_nacimiento) }}"><br>
 
         <label for="sexo">Sexo:</label>
         <select id="sexo" name="sexo" required>
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-            <option value="Otro">Otro</option>
+            <option value="Masculino" {{ old('sexo', $alumno->sexo) == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            <option value="Femenino" {{ old('sexo', $alumno->sexo) == 'Femenino' ? 'selected' : '' }}>Femenino</option>
+            <option value="Otro" {{ old('sexo', $alumno->sexo) == 'Otro' ? 'selected' : '' }}>Otro</option>
         </select><br>
 
         <label for="carrera">Carrera:</label>

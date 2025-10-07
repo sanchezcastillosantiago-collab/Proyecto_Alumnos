@@ -73,6 +73,14 @@ class AlumnoController extends Controller
     public function update(Request $request, Alumno $alumno)
     {
 
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo' => 'required|email|unique:alumnos,correo,'.$alumno->id,
+            'codigo' => 'required|string|unique:alumnos,codigo,'.$alumno->id,
+            'fecha_nacimiento' => 'required|date',
+            'sexo' => 'required|in:M,F',
+            'carrera' => 'required|string|max:255',
+        ]);
         $alumno->nombre = $request->input('nombre');
         $alumno->correo = $request->input('correo');
         $alumno->codigo = $request->input('codigo');
