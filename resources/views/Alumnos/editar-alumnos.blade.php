@@ -26,9 +26,9 @@
 
         <label for="sexo">Sexo:</label>
         <select id="sexo" name="sexo" required>
-            <option value="Masculino" {{ old('sexo', $alumno->sexo) == 'Masculino' ? 'selected' : '' }}>Masculino</option>
-            <option value="Femenino" {{ old('sexo', $alumno->sexo) == 'Femenino' ? 'selected' : '' }}>Femenino</option>
-            <option value="Otro" {{ old('sexo', $alumno->sexo) == 'Otro' ? 'selected' : '' }}>Otro</option>
+            <option value="">Seleccionar...</option>
+            <option value="M" {{ old('sexo', $alumno->sexo) == 'M' ? 'selected' : '' }}>Masculino</option>
+            <option value="F" {{ old('sexo', $alumno->sexo) == 'F' ? 'selected' : '' }}>Femenino</option>
         </select><br>
 
         <label for="carrera">Carrera:</label>

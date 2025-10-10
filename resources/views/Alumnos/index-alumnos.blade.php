@@ -23,42 +23,28 @@
                 <th>Fecha de Nacimiento</th>
                 <th>Sexo</th>
                 <th>Carrera</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
         @foreach ($alumnos as $alumno)
         <tr>
+            <td>{{ $alumno->id }}</td>
+            <td><a href="{{ route('alumnos.show', $alumno->id) }}">{{ $alumno->nombre }}</a></td>
+            <td>{{ $alumno->correo }}</td>
+            <td>{{ $alumno->codigo }}</td>
+            <td>{{ $alumno->fecha_nacimiento }}</td>
+            <td>{{ $alumno->sexo }}</td>
+            <td>{{ $alumno->carrera }}</td>
             <td>
-                {{ $alumno->id }}
-            </td>
-            <td>
-                <a href="{{ route('alumnos.show', $alumno->id) }}">{{ $alumno->nombre }}</a>
-            </td>
-            <td>
-                {{ $alumno->correo }}
-            </td>
-            <td>
-                {{ $alumno->codigo }}
-            </td>
-            <td>
-                {{ $alumno->fecha_nacimiento }}
-            </td>
-            <td>
-                {{ $alumno->sexo }}
-            </td>
-            <td>
-                {{ $alumno->carrera }}
-            </td>
-            <td>
-                <a href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a>
+                <a href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a> |
+                <form style="display:inline;" action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="background:none;border:none;color:red;cursor:pointer;">Eliminar</button>
+                </form>
             </td>
         </tr>
-        <td>
-            <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Eliminar</button>
-            </form> 
         @endforeach
     
         </tbody>
