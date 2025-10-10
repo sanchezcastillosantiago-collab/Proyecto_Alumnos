@@ -53,6 +53,12 @@
                 <a href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a>
             </td>
         </tr>
+        <td>
+            <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Eliminar</button>
+            </form> 
         @endforeach
     
         </tbody>
