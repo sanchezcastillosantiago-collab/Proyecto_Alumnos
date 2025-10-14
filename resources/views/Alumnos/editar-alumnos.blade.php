@@ -8,7 +8,9 @@
 <body>
 
     <h1>Editar Alumno</h1>
-    @include('form-error')
+    <x-encabezado >
+        Edita los datos del alumno
+    </x-encabezado>
     <form action="{{ route('alumnos.update', $alumno->id) }}" method="POST">
         @csrf
         @method('PUT')

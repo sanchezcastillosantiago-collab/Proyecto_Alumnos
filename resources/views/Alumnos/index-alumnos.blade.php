@@ -6,6 +6,7 @@
     <title>Proyecto Alumnos</title>
 </head>
 <body>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <h1>Alumnos</h1>
     
     <ul>
@@ -37,16 +38,17 @@
             <td>{{ $alumno->sexo }}</td>
             <td>{{ $alumno->carrera }}</td>
             <td>
-                <a href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a> |
+                <a class="btn btn-warning" href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a> |
                 <form style="display:inline;" action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" style="background:none;border:none;color:red;cursor:pointer;">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
             </td>
         </tr>
         @endforeach
     
         </tbody>
+        
 </body>
 </html>
