@@ -1,0 +1,23 @@
+/* Estilos del template proporcionados por el usuario */
+/* Se desactiva la imagen de fondo grande (12 12). Si quieres reactivar, cambia a background: url(...) */
+header.masthead {
+    background: none !important;
+    display: none !important;
+}
+
+/* Ajustes rápidos para el bloque de autenticación en welcome */
+.welcome-card {
+    max-width: 520px;
+    width: 100%;
+}
+.welcome-title {
+    font-size: 2rem;
+    font-weight: 600;
+}
+.welcome-subtitle {
+    color: #6c757d;
+}
+.auth-btn {
+    min-width: 160px;
+}
+
