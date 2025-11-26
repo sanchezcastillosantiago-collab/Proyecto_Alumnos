@@ -31,14 +31,10 @@
 
                 <div class="d-flex flex-column gap-3 align-items-center">
                   @if (Route::has('login'))
-                    @auth
-                      <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-lg auth-btn">Ir al dashboard</a>
-                    @else
                       <a href="{{ route('login') }}" class="btn btn-primary btn-lg auth-btn">Iniciar sesión</a>
                       @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="btn btn-outline-secondary btn-lg auth-btn">Registrarse</a>
                       @endif
-                    @endauth
                   @endif
                 </div>
               </div>
