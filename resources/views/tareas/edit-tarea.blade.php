@@ -7,43 +7,31 @@
     <div class="bg-white shadow rounded-lg p-6">
         <h1 class="text-2xl font-semibold mb-4">Editar Tarea</h1>
 
-        <form action="{{ route('tareas.update', $tarea->id) }}" method="POST" novalidate>
+        <form action="{{ route('tareas.update', $tarea->id) }}" method="POST" class="container py-4">
             @csrf
             @method('PUT')
 
-            <div class="overflow-hidden">
-                <table class="min-w-full table-auto">
-                    <tbody class="bg-white">
-                        <tr class="border-b">
-                            <td class="px-4 py-3 w-1/3 text-sm font-medium text-gray-700">Nombre</td>
-                            <td class="px-4 py-3">
-                                <input type="text" name="nombre" value="{{ old('nombre', $tarea->nombre) }}" required autofocus class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('nombre') border-red-600 ring-red-50 @enderror">
-                                @error('nombre') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </td>
-                        </tr>
-
-                        <tr class="border-b">
-                            <td class="px-4 py-3 text-sm font-medium text-gray-700">Descripción</td>
-                            <td class="px-4 py-3">
-                                <textarea name="descripcion" rows="4" class="w-full rounded-md border-gray-300 shadow-sm @error('descripcion') border-red-600 ring-red-50 @enderror">{{ old('descripcion', $tarea->descripcion) }}</textarea>
-                                @error('descripcion') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-4 py-3 text-sm font-medium text-gray-700">Fecha de entrega</td>
-                            <td class="px-4 py-3">
-                                <input type="date" name="fecha_entrega" value="{{ old('fecha_entrega', optional($tarea->fecha_entrega)->format('Y-m-d')) }}" class="w-full rounded-md border-gray-300 shadow-sm @error('fecha_entrega') border-red-600 ring-red-50 @enderror">
-                                @error('fecha_entrega') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="mb-3">
+                <label for="nombre_tarea" class="form-label">Nombre</label>
+                <input type="text" id="nombre_tarea" name="nombre" value="{{ old('nombre', $tarea->nombre) }}" class="form-control @error('nombre') is-invalid @enderror" required autofocus />
+                @error('nombre') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
-            <div class="flex items-center gap-3 mt-4">
-                <button type="submit" class="px-4 py-2 bg-gradient-to-br from-indigo-600 to-indigo-500 text-white rounded-md shadow hover:shadow-lg transform hover:-translate-y-0.5 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">Guardar</button>
-                <a href="{{ route('tareas.index') }}" class="px-4 py-2 bg-white border border-gray-200 text-gray-800 rounded-md shadow-sm hover:bg-gray-50 transition">Cancelar</a>
+            <div class="mb-3">
+                <label for="descripcion_tarea" class="form-label">Descripción</label>
+                <textarea id="descripcion_tarea" name="descripcion" rows="4" class="form-control @error('descripcion') is-invalid @enderror">{{ old('descripcion', $tarea->descripcion) }}</textarea>
+                @error('descripcion') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha_entrega_tarea" class="form-label">Fecha de entrega</label>
+                <input type="date" id="fecha_entrega_tarea" name="fecha_entrega" value="{{ old('fecha_entrega', optional($tarea->fecha_entrega)->format('Y-m-d')) }}" class="form-control @error('fecha_entrega') is-invalid @enderror" />
+                @error('fecha_entrega') <div class="invalid-feedback">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="d-flex gap-2 mt-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('tareas.index') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

@@ -6,6 +6,8 @@
     <title>@yield('title', config('app.name', 'Panel de Control'))</title>
     <link rel="stylesheet" href="{{ asset('css/custom-dashboard.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
