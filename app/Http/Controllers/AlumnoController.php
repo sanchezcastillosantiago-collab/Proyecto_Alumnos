@@ -27,27 +27,11 @@ class AlumnoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StoreAlumnoRequest $request)
     {
-      
+        $data = $request->validated();
+        $alumnos = Alumno::create($data);
 
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:alumnos,correo',
-            'codigo' => 'required|string|unique:alumnos,codigo',
-            'fecha_nacimiento' => 'required|date',
-            'sexo' => 'required|in:M,F',
-            'carrera' => 'required|string|max:255',
-        ]);
-        $alumnos = new Alumno();
-        $alumnos->nombre = $request->input('nombre');
-        $alumnos->correo = $request->input('correo');
-        $alumnos->codigo = $request->input('codigo');
-        $alumnos->fecha_nacimiento = $request->input('fecha_nacimiento');
-        $alumnos->sexo = $request->input('sexo');
-        $alumnos->carrera = $request->input('carrera');
-        $alumnos->save();
-        
         return redirect()->route('alumnos.index')->with('success', 'Alumno creado correctamente');
     }
 
@@ -70,25 +54,11 @@ class AlumnoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(\App\Http\Requests\UpdateAlumnoRequest $request, Alumno $alumno)
     {
+        $data = $request->validated();
+        $alumno->update($data);
 
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:alumnos,correo,'.$alumno->id,
-            'codigo' => 'required|string|unique:alumnos,codigo,'.$alumno->id,
-            'fecha_nacimiento' => 'required|date',
-            'sexo' => 'required|in:M,F',
-            'carrera' => 'required|string|max:255',
-        ]);
-        $alumno->nombre = $request->input('nombre');
-        $alumno->correo = $request->input('correo');
-        $alumno->codigo = $request->input('codigo');
-        $alumno->fecha_nacimiento = $request->input('fecha_nacimiento');
-        $alumno->sexo = $request->input('sexo');
-        $alumno->carrera = $request->input('carrera');
-        $alumno->save();
-        
         return redirect()->route('alumnos.index')->with('success', 'Alumno actualizado correctamente');
     }
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\TareaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,9 @@ Route::view('dashboard', 'dashboard')
     /////////////////////////////////////////////////////
     
 Route::resource('alumnos', AlumnoController::class);
+
+// CRUD de Tareas (requiere autenticación)
+Route::resource('tareas', TareaController::class)->middleware(['auth']);
 
 
 

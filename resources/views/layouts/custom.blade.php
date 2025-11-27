@@ -19,6 +19,12 @@
                 <a href="{{ route('alumnos.create') }}" class="menu-item">
                     <i class="fas fa-user-plus"></i> <span>Ingresar nuevo alumno</span>
                 </a>
+                <a href="{{ route('alumnos.index') }}" class="menu-item">
+                    <i class="fas fa-users"></i> <span>Ver Alumnos</span>
+                </a>
+                <a href="{{ route('tareas.index') }}" class="menu-item">
+                    <i class="fas fa-tasks"></i> <span>Tareas</span>
+                </a>
 
                 <form method="POST" action="{{ route('logout') }}" style="margin-top: 20px;">
                     @csrf
