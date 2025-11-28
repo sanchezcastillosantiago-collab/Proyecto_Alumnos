@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Registered;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,15 @@ class AppServiceProvider extends ServiceProvider
             $this->app['router']->aliasMiddleware('must.change', \App\Http\Middleware\EnsurePasswordChanged::class);
             $this->app['router']->aliasMiddleware('admin.or404', \App\Http\Middleware\EnsureAdminOr404::class);
         }
+
+        // Send verification email automatically when a user registers
+        Event::listen(Registered::class, function (Registered $event) {
+            try {
+                $event->user->sendEmailVerificationNotification();
+            } catch (\Throwable $e) {
+                // don't break app if mail fails in local env
+                logger()->error('Failed to send verification email: ' . $e->getMessage());
+            }
+        });
     }
 }

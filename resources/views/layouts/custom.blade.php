@@ -33,6 +33,22 @@
                     <i class="fas fa-tasks"></i> <span>Tareas</span>
                 </a>
 
+                <a href="{{ route('files.index') }}" class="menu-item">
+                    <i class="fas fa-file-alt"></i> <span>Archivos</span>
+                </a>
+
+                @auth
+                    <a href="{{ route('files.create') }}" class="menu-item">
+                        <i class="fas fa-upload"></i> <span>Subir archivos</span>
+                    </a>
+                @endauth
+
+                @can('is-admin')
+                    <a href="{{ route('emails.create') }}" class="menu-item">
+                        <i class="fas fa-envelope"></i> <span>Enviar correo</span>
+                    </a>
+                @endcan
+
                 <form method="POST" action="{{ route('logout') }}" style="margin-top: 20px;">
                     @csrf
                     <button type="submit" class="menu-item" style="background:none; border:none; width:100%; cursor:pointer; text-align:left; padding:12px 15px;">

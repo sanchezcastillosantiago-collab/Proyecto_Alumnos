@@ -31,6 +31,18 @@ Route::post('secciones/{seccion}/assign-random', [SeccionController::class, 'ass
     ->name('secciones.assign.random')
     ->middleware(['auth','must.change','admin.or404']);
 
+// File uploads
+Route::get('files', [\App\Http\Controllers\FileController::class, 'index'])->name('files.index');
+Route::get('files/create', [\App\Http\Controllers\FileController::class, 'create'])->name('files.create')->middleware(['auth']);
+Route::post('files', [\App\Http\Controllers\FileController::class, 'store'])->name('files.store')->middleware(['auth']);
+Route::get('files/{file}/download', [\App\Http\Controllers\FileController::class, 'download'])->name('files.download');
+Route::delete('files/{file}', [\App\Http\Controllers\FileController::class, 'destroy'])->name('files.destroy')->middleware(['auth','admin.or404']);
+Route::post('files/{file}/replace', [\App\Http\Controllers\FileController::class, 'replace'])->name('files.replace')->middleware(['auth','admin.or404']);
+
+// Custom email sender
+Route::get('emails/send', [\App\Http\Controllers\EmailController::class, 'create'])->name('emails.create')->middleware(['auth','admin.or404']);
+Route::post('emails/send', [\App\Http\Controllers\EmailController::class, 'send'])->name('emails.send')->middleware(['auth','admin.or404']);
+
 // CRUD de Tareas
 // index/show son públicos; create/store/edit/update/destroy requieren auth
 Route::resource('tareas', TareaController::class);
