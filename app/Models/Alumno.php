@@ -34,4 +34,12 @@ class Alumno extends Model
     {
         return $this->belongsTo(Seccion::class, 'seccion_id');
     }
+
+    /**
+     * Relación muchos a muchos: alumno pertenece a muchas secciones
+     */
+    public function secciones()
+    {
+        return $this->belongsToMany(Seccion::class, 'alumno_seccion', 'alumno_id', 'seccion_id')->withTimestamps();
+    }
 }

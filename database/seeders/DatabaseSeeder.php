@@ -31,5 +31,11 @@ class DatabaseSeeder extends Seeder
         if (\App\Models\Seccion::count() === 0) {
             \App\Models\Seccion::factory()->count(3)->create();
         }
+
+        // Create 15 additional alumnos
+        \App\Models\Alumno::factory()->count(15)->create();
+
+        // Create 20 tareas (will assign to existing users or create users as needed)
+        \App\Models\Tarea::factory()->count(20)->create();
     }
 }

@@ -21,4 +21,12 @@ class Seccion extends Model
     {
         return $this->hasMany(Alumno::class, 'seccion_id');
     }
+
+    /**
+     * Relación muchos a muchos: sección tiene muchos alumnos (vía pivot)
+     */
+    public function alumnosPivot()
+    {
+        return $this->belongsToMany(Alumno::class, 'alumno_seccion', 'seccion_id', 'alumno_id')->withTimestamps();
+    }
 }
