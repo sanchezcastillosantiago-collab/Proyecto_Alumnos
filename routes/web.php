@@ -26,6 +26,11 @@ Route::post('secciones/{seccion}/alumnos', [SeccionController::class, 'attachAlu
     ->name('secciones.attach.alumnos')
     ->middleware(['auth','must.change','admin.or404']);
 
+// Asignar alumnos aleatoriamente a una sección (solo admin)
+Route::post('secciones/{seccion}/assign-random', [SeccionController::class, 'assignRandom'])
+    ->name('secciones.assign.random')
+    ->middleware(['auth','must.change','admin.or404']);
+
 // CRUD de Tareas
 // index/show son públicos; create/store/edit/update/destroy requieren auth
 Route::resource('tareas', TareaController::class);

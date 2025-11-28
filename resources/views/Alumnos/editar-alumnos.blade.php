@@ -25,13 +25,13 @@
 
                 <div class="mb-3">
                     <label for="codigo" class="form-label">Código</label>
-                    <input type="text" id="codigo" name="codigo" value="{{ old('codigo', $alumno->codigo) }}" class="form-control @error('codigo') is-invalid @enderror" placeholder="CÓDIGO123" required />
+                    <input type="text" inputmode="numeric" pattern="\d*" id="codigo" name="codigo" value="{{ old('codigo', $alumno->codigo) }}" class="form-control @error('codigo') is-invalid @enderror" placeholder="123456" required />
                     @error('codigo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento', $alumno->fecha_nacimiento) }}" class="form-control @error('fecha_nacimiento') is-invalid @enderror" required />
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento', optional($alumno->fecha_nacimiento)->format('Y-m-d')) }}" class="form-control @error('fecha_nacimiento') is-invalid @enderror" required />
                     @error('fecha_nacimiento') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 

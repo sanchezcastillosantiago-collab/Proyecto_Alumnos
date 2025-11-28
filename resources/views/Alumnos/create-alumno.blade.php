@@ -30,7 +30,7 @@
 
                 <div class="mb-3">
                     <label for="codigo" class="form-label">Código</label>
-                    <input type="text" id="codigo" name="codigo" value="{{ old('codigo') }}" class="form-control @error('codigo') is-invalid @enderror" placeholder="CÓDIGO123" required />
+                    <input type="text" inputmode="numeric" pattern="\d*" id="codigo" name="codigo" value="{{ old('codigo') }}" class="form-control @error('codigo') is-invalid @enderror" placeholder="123456" required />
                     @error('codigo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 

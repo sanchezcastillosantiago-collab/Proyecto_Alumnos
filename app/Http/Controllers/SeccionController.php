@@ -95,4 +95,33 @@ class SeccionController extends Controller
 
         return redirect()->route('secciones.show', $seccion)->with('success', 'Alumnos inscritos correctamente.');
     }
+
+    /**
+     * Assign a random selection (or all) of available alumnos to this section.
+     * Only accessible to admins (middleware enforces this).
+     * Accepts optional `count` in the request to limit how many alumnos to attach.
+     */
+    public function assignRandom(Request $request, Seccion $seccion)
+    {
+        $request->validate([
+            'count' => ['nullable','integer','min:1']
+        ]);
+
+        // IDs of alumnos not yet enrolled in this section
+        $enrolledIds = $seccion->alumnosPivot()->pluck('id')->toArray();
+        $available = Alumno::whereNotIn('id', $enrolledIds)->pluck('id')->toArray();
+
+        if (empty($available)) {
+            return redirect()->route('secciones.show', $seccion)->with('info', 'No hay alumnos disponibles para inscribir.');
+        }
+
+        // shuffle and take requested count or all
+        shuffle($available);
+        $count = $request->input('count');
+        $selected = $count ? array_slice($available, 0, (int) $count) : $available;
+
+        $seccion->alumnosPivot()->syncWithoutDetaching($selected);
+
+        return redirect()->route('secciones.show', $seccion)->with('success', sprintf('Se han inscrito %d alumnos aleatoriamente.', count($selected)));
+    }
 }

@@ -38,20 +38,30 @@
                     <div class="card-header">Inscribir alumnos</div>
                     <div class="card-body">
                         @can('is-admin')
-                            <form action="{{ route('secciones.attach.alumnos', $seccion) }}" method="POST">
-                                @csrf
-
-                                <div class="mb-3">
+                            <div class="mb-3">
+                                <form action="{{ route('secciones.attach.alumnos', $seccion) }}" method="POST" class="mb-3">
+                                    @csrf
                                     <label for="alumnos" class="form-label">Seleccionar alumnos</label>
                                     <select id="alumnos" name="alumnos[]" class="form-select" multiple size="8">
                                         @foreach($availableAlumnos as $alumno)
                                             <option value="{{ $alumno->id }}">{{ $alumno->nombre }} — {{ $alumno->correo }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                    <div class="mt-2">
+                                        <button class="btn btn-primary" type="submit">Inscribir seleccionados</button>
+                                    </div>
+                                </form>
+                            </div>
 
-                                <button class="btn btn-primary" type="submit">Inscribir seleccionados</button>
-                            </form>
+                            <div class="mb-3">
+                                <form action="{{ route('secciones.assign.random', $seccion) }}" method="POST" class="d-flex align-items-center gap-2">
+                                    @csrf
+                                    <label for="count" class="form-label mb-0">Inscribir aleatoriamente</label>
+                                    <input type="number" name="count" id="count" min="1" placeholder="Número (vacío = todos)" class="form-control" style="width:140px;" />
+                                    <button class="btn btn-outline-primary" type="submit">Ejecutar</button>
+                                </form>
+                                <small class="text-muted">Si dejas vacío, se inscriben todos los alumnos disponibles.</small>
+                            </div>
                         @else
                             <div class="alert alert-secondary">Solo los administradores pueden inscribir alumnos a esta sección.</div>
                         @endcan

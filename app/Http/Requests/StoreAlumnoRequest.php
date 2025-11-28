@@ -16,7 +16,8 @@ class StoreAlumnoRequest extends FormRequest
         return [
             'nombre' => 'required|string|max:255',
             'correo' => 'required|email|unique:alumnos,correo',
-            'codigo' => 'required|string|unique:alumnos,codigo',
+            // codigo must contain only digits
+            'codigo' => ['required', 'regex:/^[0-9]+$/', 'unique:alumnos,codigo'],
             'fecha_nacimiento' => 'required|date',
             'sexo' => 'required|in:M,F',
             'carrera' => 'required|string|max:255',
@@ -31,6 +32,7 @@ class StoreAlumnoRequest extends FormRequest
             'correo.required' => 'El correo es obligatorio.',
             'correo.email' => 'El correo debe ser una dirección válida.',
             'codigo.required' => 'El código es obligatorio.',
+            'codigo.regex' => 'El código debe contener sólo números (0-9).',
             'fecha_nacimiento.required' => 'La fecha de nacimiento es obligatoria.',
             'sexo.required' => 'El sexo es obligatorio.',
             'carrera.required' => 'La carrera es obligatoria.',
