@@ -27,10 +27,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed some example secciones if none exist
-        if (\App\Models\Seccion::count() === 0) {
-            \App\Models\Seccion::factory()->count(3)->create();
-        }
+        // Seed secciones via dedicated seeder (20 secciones)
+        $this->call(\Database\Seeders\SeccionSeeder::class);
 
         // Create 15 additional alumnos
         \App\Models\Alumno::factory()->count(15)->create();

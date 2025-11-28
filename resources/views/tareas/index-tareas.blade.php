@@ -6,7 +6,9 @@
     <div class="max-w-6xl mx-auto py-8 px-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3">Tareas</h1>
-            <a href="{{ route('tareas.create') }}" class="btn btn-primary">Crear Tarea</a>
+            @auth
+                <a href="{{ route('tareas.create') }}" class="btn btn-primary">Crear Tarea</a>
+            @endauth
         </div>
 
         @if (session('success'))

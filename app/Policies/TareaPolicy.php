@@ -24,12 +24,21 @@ class TareaPolicy
     }
 
     /**
+     * Determine whether the user can create tareas.
+     */
+    public function create(User $user): bool
+    {
+        // Cualquier usuario autenticado puede crear una tarea
+        return $user !== null;
+    }
+
+    /**
      * Only the owner can update the tarea.
      */
     public function update(User $user, Tarea $tarea): bool
     {
-        // Solo los administradores pueden actualizar tareas
-        return $user->isAdmin();
+        // Solo el dueño (creator) puede actualizar la tarea
+        return $user->id === $tarea->user_id;
     }
 
     /**
@@ -37,7 +46,7 @@ class TareaPolicy
      */
     public function delete(User $user, Tarea $tarea): bool
     {
-        // Solo los administradores pueden eliminar tareas
-        return $user->isAdmin();
+        // Solo el dueño (creator) puede eliminar la tarea
+        return $user->id === $tarea->user_id;
     }
 }

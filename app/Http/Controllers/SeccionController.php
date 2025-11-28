@@ -31,12 +31,9 @@ class SeccionController extends Controller
     /**
      * Attach one or more alumnos to the given seccion (many-to-many)
      */
-    public function attachAlumnos(Request $request, Seccion $seccion)
+    public function attachAlumnos(\App\Http\Requests\AttachAlumnosRequest $request, Seccion $seccion)
     {
-        $data = $request->validate([
-            'alumnos' => 'required|array',
-            'alumnos.*' => 'exists:alumnos,id',
-        ]);
+        $data = $request->validated();
 
         $seccion->alumnosPivot()->syncWithoutDetaching($data['alumnos']);
 

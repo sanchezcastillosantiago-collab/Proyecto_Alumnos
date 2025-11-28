@@ -13,11 +13,11 @@ class TareaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
         // Apply policy mappings automatically for resource methods
         $this->authorizeResource(Tarea::class, 'tarea');
-        // Además, devolver 404 a usuarios autenticados que no sean admin cuando intenten editar/eliminar
-        $this->middleware('admin.or404')->only(['edit', 'update', 'destroy']);
+
+        // Solo las acciones que modifican requieren autenticación y must.change
+        $this->middleware(['auth', 'must.change'])->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
     // Protect edit/update/destroy with admin-or-404 so direct access shows 404 for non-admins
@@ -28,7 +28,8 @@ class TareaController extends Controller
 
     public function index()
     {
-        $tareas = Tarea::latest()->paginate(12);
+        // Mostrar en orden cronológico (la primera creada aparece primero)
+        $tareas = Tarea::orderBy('created_at', 'asc')->paginate(12);
         return view('tareas.index-tareas', compact('tareas'));
     }
 
@@ -40,8 +41,14 @@ class TareaController extends Controller
     public function store(StoreTareaRequest $request)
     {
         $data = $request->validated();
-    $data['user_id'] = Auth::id();
-        Tarea::create($data);
+        $data['user_id'] = Auth::id();
+        try {
+            \Log::info('Creating tarea', ['user' => Auth::id(), 'data' => $data]);
+            Tarea::create($data);
+        } catch (\Throwable $e) {
+            \Log::error('Tarea create failed: ' . $e->getMessage());
+            abort(500, 'Error al crear la tarea');
+        }
 
         return redirect()->route('tareas.index')->with('success', 'Tarea creada correctamente');
     }
