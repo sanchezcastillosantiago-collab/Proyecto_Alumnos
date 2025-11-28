@@ -5,6 +5,7 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\TareaController;
+use App\Http\Controllers\SeccionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +17,10 @@ Route::view('dashboard', 'dashboard')
     /////////////////////////////////////////////////////
     
 Route::resource('alumnos', AlumnoController::class);
+
+// Secciones
+Route::resource('secciones', SeccionController::class)->only(['show'])->middleware(['auth','must.change']);
+Route::post('secciones/{seccion}/alumnos', [SeccionController::class, 'attachAlumnos'])->name('secciones.attach.alumnos')->middleware(['auth','must.change','admin.or404']);
 
 // CRUD de Tareas (requiere autenticación)
 Route::resource('tareas', TareaController::class)->middleware(['auth', 'must.change']);
