@@ -68,6 +68,17 @@
                     @error('carrera') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="seccion_id" class="form-label">Sección</label>
+                    <select id="seccion_id" name="seccion_id" class="form-select @error('seccion_id') is-invalid @enderror">
+                        <option value="">Sin sección</option>
+                        @foreach($secciones as $seccion)
+                            <option value="{{ $seccion->id }}" {{ old('seccion_id') == $seccion->id ? 'selected' : '' }}>{{ $seccion->seccion }} @if($seccion->aula) - {{ $seccion->aula }}@endif</option>
+                        @endforeach
+                    </select>
+                    @error('seccion_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+
                 <div class="d-flex gap-2 mt-4">
                     <button type="submit" class="btn btn-primary">Guardar Alumno</button>
                     <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Cancelar</a>

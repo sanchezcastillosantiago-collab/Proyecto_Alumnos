@@ -19,6 +19,7 @@
                         <p class="mb-1"><strong>Fecha de Nacimiento:</strong> {{ $alumno->fecha_nacimiento }}</p>
                         <p class="mb-1"><strong>Sexo:</strong> {{ $alumno->sexo == 'M' ? 'Masculino' : 'Femenino' }}</p>
                         <p class="mb-1"><strong>Carrera:</strong> {{ $alumno->carrera }}</p>
+                        <p class="mb-1"><strong>Sección:</strong> {{ optional($alumno->seccion)->seccion ?? '-' }} {{ optional($alumno->seccion)->aula ? '(' . optional($alumno->seccion)->aula . ')' : '' }}</p>
                     </div>
                 </div>
 

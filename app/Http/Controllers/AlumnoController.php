@@ -27,7 +27,8 @@ class AlumnoController extends Controller
      */
     public function create()
     {
-       return view('alumnos.create-alumno');
+         $secciones = \App\Models\Seccion::all();
+         return view('alumnos.create-alumno', compact('secciones'));
     }
 
     /**
@@ -54,7 +55,8 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        return view('alumnos.editar-alumnos', compact('alumno'));
+        $secciones = \App\Models\Seccion::all();
+        return view('alumnos.editar-alumnos', compact('alumno', 'secciones'));
     }
 
     /**

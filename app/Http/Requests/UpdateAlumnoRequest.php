@@ -22,6 +22,7 @@ class UpdateAlumnoRequest extends FormRequest
             'fecha_nacimiento' => 'required|date',
             'sexo' => 'required|in:M,F',
             'carrera' => 'required|string|max:255',
+            'seccion_id' => 'nullable|exists:secciones,id',
         ];
     }
 

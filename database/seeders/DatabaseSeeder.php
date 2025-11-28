@@ -16,13 +16,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // Create a test admin user so you can log in locally.
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => 'admin',
-            'password' => Hash::make('contraseña'),
-            'must_change_password' => true,
-        ]);
+        // Create or update a test admin user so you can log in locally.
+        User::updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'role' => 'admin',
+                'password' => Hash::make('contraseña'),
+                'must_change_password' => true,
+            ]
+        );
+
+        // Seed some example secciones if none exist
+        if (\App\Models\Seccion::count() === 0) {
+            \App\Models\Seccion::factory()->count(3)->create();
+        }
     }
 }

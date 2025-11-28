@@ -29,6 +29,7 @@
                                 <th>Fecha Nac.</th>
                                 <th>Sexo</th>
                                 <th>Carrera</th>
+                                <th>Sección</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -42,6 +43,7 @@
                                 <td>{{ $alumno->fecha_nacimiento }}</td>
                                 <td>{{ $alumno->sexo == 'M' ? 'Masculino' : 'Femenino' }}</td>
                                 <td>{{ $alumno->carrera }}</td>
+                                <td>{{ optional($alumno->seccion)->seccion ?? '-' }}{{ optional($alumno->seccion)->aula ? ' - ' . optional($alumno->seccion)->aula : '' }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a class="btn btn-sm btn-primary" href="{{ route('alumnos.show', $alumno->id) }}">Ver</a>
