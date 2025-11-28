@@ -60,8 +60,6 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            {{ $tareas->links() }}
-        </div>
+        <!-- Pagination removed: show all tareas on a single page like Alumnos -->
     </div>
 @endsection

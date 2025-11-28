@@ -19,8 +19,12 @@ Route::view('dashboard', 'dashboard')
 Route::resource('alumnos', AlumnoController::class);
 
 // Secciones
-Route::resource('secciones', SeccionController::class)->only(['show'])->middleware(['auth','must.change']);
-Route::post('secciones/{seccion}/alumnos', [SeccionController::class, 'attachAlumnos'])->name('secciones.attach.alumnos')->middleware(['auth','must.change','admin.or404']);
+// index and show are public; other CRUD routes are handled by the controller (which enforces auth/admin where needed)
+Route::resource('secciones', SeccionController::class);
+
+Route::post('secciones/{seccion}/alumnos', [SeccionController::class, 'attachAlumnos'])
+    ->name('secciones.attach.alumnos')
+    ->middleware(['auth','must.change','admin.or404']);
 
 // CRUD de Tareas
 // index/show son públicos; create/store/edit/update/destroy requieren auth

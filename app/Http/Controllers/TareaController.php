@@ -28,8 +28,9 @@ class TareaController extends Controller
 
     public function index()
     {
-        // Mostrar en orden cronológico (la primera creada aparece primero)
-        $tareas = Tarea::orderBy('created_at', 'asc')->paginate(12);
+    // Mostrar en orden cronológico (la primera creada aparece primero)
+    // Cargar todas las tareas en una sola página (sin paginación)
+    $tareas = Tarea::orderBy('created_at', 'asc')->get();
         return view('tareas.index-tareas', compact('tareas'));
     }
 

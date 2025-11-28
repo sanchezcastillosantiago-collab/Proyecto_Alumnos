@@ -14,6 +14,10 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+
+                    @auth
+                        <flux:navlist.item icon="stack" :href="route('secciones.index')" :current="request()->routeIs('secciones*')" wire:navigate>Secciones</flux:navlist.item>
+                    @endauth
                 </flux:navlist.group>
             </flux:navlist>
 

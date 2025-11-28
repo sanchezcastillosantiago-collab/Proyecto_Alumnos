@@ -24,6 +24,11 @@
                 <a href="{{ route('alumnos.index') }}" class="menu-item">
                     <i class="fas fa-users"></i> <span>Ver Alumnos</span>
                 </a>
+
+                <a href="{{ route('secciones.index') }}" class="menu-item">
+                    <i class="fas fa-layer-group"></i> <span>Secciones</span>
+                </a>
+
                 <a href="{{ route('tareas.index') }}" class="menu-item">
                     <i class="fas fa-tasks"></i> <span>Tareas</span>
                 </a>
@@ -57,6 +62,75 @@
 
         </main>
     </div>
+
+    <script>
+    // Overlay removal script (more aggressive): hides large fixed/absolute/sticky elements that cover the app.
+    // Protects only `.sidebar` and `.top-bar` (navigation). Uses MutationObserver to catch elements injected later.
+    (function(){
+        const PROTECTED = ['.sidebar', '.top-bar', '.dashboard-container'];
+        const HIDE_ATTR = 'data-hidden-by';
+        const THRESHOLD = 120; // pixels (width or height) to consider an element 'large'
+
+        function isProtected(el){
+            try{
+                for(const sel of PROTECTED){ if(el.closest && el.closest(sel)) return true; }
+            }catch(e){ }
+            return false;
+        }
+
+        function hideOverlay(el){
+            if(!el || el.hasAttribute(HIDE_ATTR)) return false;
+            try{
+                if(isProtected(el)) return false;
+                // mark then fade out
+                el.setAttribute(HIDE_ATTR, 'hide-overlay-script');
+                el.style.transition = 'opacity 180ms ease, transform 180ms ease';
+                el.style.opacity = '0';
+                el.style.transform = 'scale(0.01)';
+                el.style.pointerEvents = 'none';
+                setTimeout(()=>{ try{ el.style.display = 'none'; }catch(e){} }, 220);
+                console.debug('hide-overlay-script: hid', el);
+                return true;
+            }catch(e){ return false; }
+        }
+
+        function scanAndHide(){
+            try{
+                const els = Array.from(document.querySelectorAll('body *'));
+                for(const el of els){
+                    try{
+                        const style = window.getComputedStyle(el);
+                        if(!style) continue;
+                        const pos = style.position;
+                        if(pos !== 'fixed' && pos !== 'absolute' && pos !== 'sticky') continue;
+                        const rect = el.getBoundingClientRect();
+                        const area = rect.width * rect.height;
+                        const z = parseInt(style.zIndex) || 0;
+                        // Hide if large enough or obviously overlay (high z-index)
+                        if((rect.width > THRESHOLD || rect.height > THRESHOLD || area > 10000 || z >= 999) && !isProtected(el)){
+                            hideOverlay(el);
+                        }
+                    }catch(e){ /* ignore */ }
+                }
+
+            }catch(e){ console.error('scanAndHide error', e); }
+        }
+
+        // Run immediately and after load
+        document.addEventListener('DOMContentLoaded', scanAndHide);
+        window.addEventListener('load', ()=>{ setTimeout(scanAndHide, 200); });
+
+        // Observe DOM changes (toolbars may be injected later)
+        const observer = new MutationObserver((mutations)=>{
+            // debounce
+            clearTimeout(window.__hideOverlayTimer);
+            window.__hideOverlayTimer = setTimeout(scanAndHide, 120);
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        // Expose helper for debugging
+        window.__scanAndHideOverlays = scanAndHide;
+    })();
+    </script>
 
 </body>
 </html>

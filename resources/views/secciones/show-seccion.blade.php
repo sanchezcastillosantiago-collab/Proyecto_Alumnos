@@ -37,20 +37,24 @@
                 <div class="card mb-4">
                     <div class="card-header">Inscribir alumnos</div>
                     <div class="card-body">
-                        <form action="{{ route('secciones.attach.alumnos', $seccion) }}" method="POST">
-                            @csrf
+                        @can('is-admin')
+                            <form action="{{ route('secciones.attach.alumnos', $seccion) }}" method="POST">
+                                @csrf
 
-                            <div class="mb-3">
-                                <label for="alumnos" class="form-label">Seleccionar alumnos</label>
-                                <select id="alumnos" name="alumnos[]" class="form-select" multiple size="8">
-                                    @foreach($availableAlumnos as $alumno)
-                                        <option value="{{ $alumno->id }}">{{ $alumno->nombre }} — {{ $alumno->correo }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="alumnos" class="form-label">Seleccionar alumnos</label>
+                                    <select id="alumnos" name="alumnos[]" class="form-select" multiple size="8">
+                                        @foreach($availableAlumnos as $alumno)
+                                            <option value="{{ $alumno->id }}">{{ $alumno->nombre }} — {{ $alumno->correo }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                            <button class="btn btn-primary" type="submit">Inscribir seleccionados</button>
-                        </form>
+                                <button class="btn btn-primary" type="submit">Inscribir seleccionados</button>
+                            </form>
+                        @else
+                            <div class="alert alert-secondary">Solo los administradores pueden inscribir alumnos a esta sección.</div>
+                        @endcan
                     </div>
                 </div>
             </div>

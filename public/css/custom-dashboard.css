@@ -208,4 +208,20 @@ body {
 .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
 .text-base { font-size: 1rem; line-height: 1.5rem; }
 
+/* -------------------------------------------------- */
+/* Ocultar toolbars/overlays de depuración que pueden */
+/* aparecer en desarrollo y superponerse a la UI       */
+/* -------------------------------------------------- */
+#phpdebugbar, .phpdebugbar, #laravel-debugbar, .laravel-debugbar, #debugbar, .debugbar,
+.sf-toolbar, #clockwork, .clockwork, #symfony-debug, .symfony-debug {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Si hay SVGs decorativos posicionados y sobredimensionados, reducir su tamaño */
+svg[role="presentation"], svg[data-decor="true"] {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
 
