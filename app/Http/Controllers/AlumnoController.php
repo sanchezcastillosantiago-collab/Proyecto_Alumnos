@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
 {
+    public function __construct()
+    {
+        // Solo administradores pueden crear/editar/eliminar alumnos; devolver 404 si no
+        $this->middleware('admin.or404')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

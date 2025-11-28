@@ -23,13 +23,15 @@
                 </div>
 
                 <div class="mt-3 d-flex gap-2">
-                    <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Volver a Lista</a>
-                    <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-warning text-dark">Editar</a>
-                    <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
+                        <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Volver a Lista</a>
+                        @can('is-admin')
+                            <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-warning text-dark">Editar</a>
+                            <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        @endcan
                 </div>
             </div>
         </div>

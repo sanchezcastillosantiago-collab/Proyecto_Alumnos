@@ -7,7 +7,9 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h3">Lista de Alumnos</h1>
-            <a href="{{ route('alumnos.create') }}" class="btn btn-primary">Crear Nuevo Alumno</a>
+            @can('is-admin')
+                <a href="{{ route('alumnos.create') }}" class="btn btn-primary">Crear Nuevo Alumno</a>
+            @endcan
         </div>
 
         @if (session('success'))
@@ -43,12 +45,14 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a class="btn btn-sm btn-primary" href="{{ route('alumnos.show', $alumno->id) }}">Ver</a>
-                                        <a class="btn btn-sm btn-warning text-dark" href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a>
-                                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                        </form>
+                                        @can('is-admin')
+                                            <a class="btn btn-sm btn-warning text-dark" href="{{ route('alumnos.edit', $alumno->id) }}">Editar</a>
+                                            <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este alumno?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

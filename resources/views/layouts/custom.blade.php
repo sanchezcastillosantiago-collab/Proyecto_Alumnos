@@ -39,7 +39,7 @@
 
         <header class="top-bar">
             <div class="search-bar">
-                <span style="color: #94a3b8;">Bienvenido, <strong>{{ Auth::user()->name ?? 'Usuario' }}</strong></span>
+                <span style="color: #94a3b8;">Bienvenido</span>
             </div>
             <div class="user-profile">
                 <div class="avatar">

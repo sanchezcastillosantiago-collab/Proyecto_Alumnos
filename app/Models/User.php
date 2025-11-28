@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -66,5 +67,13 @@ class User extends Authenticatable
     public function tareas()
     {
         return $this->hasMany(Tarea::class);
+    }
+
+    /**
+     * Indica si el usuario tiene rol administrador
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }
